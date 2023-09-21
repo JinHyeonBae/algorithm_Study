@@ -54,7 +54,7 @@ public class swea_2112 {
         }
     }
 
-    public static boolean isPassed(){ //---> O(W)
+    public static boolean isPassed(){ //---> O(W * D)
         for (int c = 1; c <= W; c++) {
             if (!check(c)){
                 return false;
@@ -63,14 +63,14 @@ public class swea_2112 {
         return true;
     }
 
-    public static void recover(int row){
+    public static void recover(){
         for(int i = 1; i <= D; i++){ // O(D)
             cells[i] = origin[i].clone();
         }
     }
 
     static boolean isReached = false;
-    public static void solution(int cnt, int target, int[] tc){ // 이미 순열 때문에 13! 터질 수 밖에 없다..
+    public static void solution(int cnt, int target, int start, int[] tc){ // 이미 순열 때문에 13! 터질 수 밖에 없다..
 
         //if(cnt > K)
         //return;
@@ -89,25 +89,22 @@ public class swea_2112 {
                 return;
             }
 
-            for(int r = 1; r <= D; r++) {
-                if (visited[r]) { // row 기반으로
-                    recover(r);
-                }
-            }
+            recover();
             return;
         }
 
-        for(int i = 1; i <= D; i++){
+        // 가지치기 방법론을 모르겠다..
+        for(int i = start; i <= D; i++){
             if(!visited[i]){
                 visited[i] = true;
                 tc[i] = 0;
-                solution(cnt + 1, target, tc);
+                solution(cnt + 1, target, i + 1,  tc);
 
                 if(isReached)
                     return;
 
                 tc[i] = 1;
-                solution(cnt + 1, target, tc);
+                solution(cnt + 1, target, i + 1,  tc);
 
                 if(isReached)
                     return;
@@ -151,12 +148,12 @@ public class swea_2112 {
             }
             //print(cells);
 
-            if(isPassed()){
+            if(K == 1 || isPassed()){
                 System.out.println("#" + tc + " 0");
                 continue;
             }
 
-            for(int ct = 1; ct <= D; ct++) {
+            for(int ct = 1; ct <= K; ct++) {
                 int[] tca = new int[D + 1];
                 solution(0, ct, tca);
 
