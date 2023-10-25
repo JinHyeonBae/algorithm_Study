@@ -12,7 +12,6 @@ import java.util.StringTokenizer;
 
 public class BOJ_6087 {
 
-    // 11%에서 틀리는 스타일
     static char[][] map;
     static int[][] visited;
 
@@ -135,7 +134,7 @@ public class BOJ_6087 {
         }
 
         solution();
-//
+
         Integer result = candidates.get(0);
         System.out.println(result);
 
