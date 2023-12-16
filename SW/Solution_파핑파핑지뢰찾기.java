@@ -21,7 +21,6 @@ public class Solution_파핑파핑지뢰찾기 {
         check = new boolean[N][N];
     }
 
-    // 클릭한 C의 개수는 클릭 수에 포함되겠지?
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
@@ -40,7 +39,6 @@ public class Solution_파핑파핑지뢰찾기 {
             }
 
             signNumber();
-            //print(sign); // 점수가 잘 들어갔는지를 확인
             int answer = solution();
 
             System.out.println("#" + tc + " " + answer);
@@ -83,7 +81,6 @@ public class Solution_파핑파핑지뢰찾기 {
                         if (!isRanged(nr, nc)) continue;
                         if (sign[nr][nc] == '*') continue;
 
-                        // 0 이지만, 사각형 꼭짓점에 있으면 주위에 터트릴 요소가 없다는 뜻이므로, 이 경우 true로 변경한다.
                         check[nr][nc] = true;
 
                         if(sign[nr][nc] == '0')
@@ -100,6 +97,7 @@ public class Solution_파핑파핑지뢰찾기 {
         return ans + getNotOpenedElement();
     }
 
+    // 순회가 끝났을 시점에, 지뢰가 아닌, 방문되지 않은 칸의 횟수
     private static int getNotOpenedElement(){
         int cnt = 0;
 
@@ -115,6 +113,7 @@ public class Solution_파핑파핑지뢰찾기 {
     }
 
 
+    // 현재 좌표가 배열 내부에 존재하는 지를 알려주는 함수
     public static boolean isRanged(int r, int c){
         return r >= 0 && c >= 0 && r < N && c < N;
     }
